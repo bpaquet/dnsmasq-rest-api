@@ -1,1 +1,2 @@
-dnsmasq-rest-api/config.php
+www/config.php
+phpunit.phar

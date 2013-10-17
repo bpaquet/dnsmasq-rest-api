@@ -16,12 +16,14 @@ function send_404($msg = "Not found !") {
 }
 
 if (preg_match("/zones$/", $request)) {
-  send_json(list_zones());
+  $zone = new Zone($host_d_path);
+  send_json($zone->list_zones());
 }
 else if (preg_match("/zones\/(.*$)/", $request, &$matches)) {
   $z = $matches[1];
-  if (array_search($z, list_zones()) !== false) {
-    send_json(get_zone($z));
+  $zone = new Zone($host_d_path);
+  if (array_search($z, $zone->list_zones()) !== false) {
+    send_json($zone->get_zone($z));
   }
   else {
     send_404("Zone not found " . $z);
