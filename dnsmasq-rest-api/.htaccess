@@ -1,0 +1,5 @@
+
+RewriteEngine on
+RewriteBase /dnsmasq-rest-api
+RewriteCond %{REQUEST_URI} !=/dnsmasq-rest-api/index.php
+RewriteRule ^.*$ /dnsmasq-rest-api/index.php [L]

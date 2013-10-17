@@ -1,0 +1,5 @@
+<?php
+
+$host_d_path = "/etc/dnsmasq.hosts.d";
+$reload_command = "sudo killall -HUP dnsmasq";
+$lease_file = "/var/lib/misc/dnsmasq.leases";
