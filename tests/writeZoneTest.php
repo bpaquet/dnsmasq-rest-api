@@ -5,7 +5,7 @@ require_once 'zones.php';
 class WriteZoneTest extends PHPUnit_Framework_TestCase {
 
   function setUp() {
-    $this->path = exec("mktemp -d -t test");
+    $this->path = exec("mktemp -d -t test.XXXXXXXXXXX");
     $this->zone = new Zone($this->path);
     file_put_contents($this->path."/zone1", "127.0.0.1 toto");
   }
