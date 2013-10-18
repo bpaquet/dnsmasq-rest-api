@@ -15,9 +15,15 @@ function send_404($msg = "Not found !") {
   echo $msg;
 }
 
-function send_ok($res, $msg = "") {
+function send_ok($res, $msg = "", $msg_error = "") {
   if ($res === false) {
     header("HTTP/1.0 500 Error");
+    header('Content-type: text/plain');
+    echo "Error";
+    if ($msg_error != "") {
+      echo " ".$msg_error;
+    }
+    echo "\n";
   }
   else {
     header("HTTP/1.0 200 OK");
@@ -30,7 +36,11 @@ function send_ok($res, $msg = "") {
   }
 }
 
-if (preg_match("/zones$/", $request)) {
+if (preg_match("/reload$/", $request)) {
+  exec($reload_command, $out, $return);
+  send_ok($return == 0, "Dnmasq config reloaded", "Unable to reload dnmasq config ".implode("\n", $out));
+}
+else if (preg_match("/zones$/", $request)) {
   $zones = new Zones($host_d_path);
   send_json($zones->list_zones());
 }
