@@ -5,11 +5,11 @@ require_once 'zones.php';
 class ReadZoneTest extends PHPUnit_Framework_TestCase {
 
   function setUp() {
-    $this->zone = new Zone("tests/data/read");
+    $this->zone = new Zones("tests/data/read");
   }
 
   function testListZoneWrongPath() {
-    $z = new Zone("toto");
+    $z = new Zones("toto");
     $this->assertEquals(array(), $z->list_zones());
   }
 

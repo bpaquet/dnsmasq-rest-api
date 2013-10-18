@@ -31,26 +31,31 @@ function send_ok($res, $msg = "") {
 }
 
 if (preg_match("/zones$/", $request)) {
-  $zone = new Zone($host_d_path);
-  send_json($zone->list_zones());
+  $zones = new Zones($host_d_path);
+  send_json($zones->list_zones());
 }
 else if (preg_match("/zones\/([^\/]*)$/", $request, &$matches)) {
   $z = $matches[1];
-  $zone = new Zone($host_d_path);
-  if (in_array($z, $zone->list_zones())) {
-    send_json($zone->get_zone($z));
+  $zones = new Zones($host_d_path);
+  if (in_array($z, $zones->list_zones())) {
+    if ($_SERVER["REQUEST_METHOD"] == "DELETE") {
+      send_ok($zones->delete_zone($z), "Zone deleted");
+    }
+    else {
+      send_json($zones->get_zone($z));
+    }
   }
   else {
     send_404("Zone not found " . $z);
   }
 }
 else if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)\/([^\/]*)$/", $request, &$matches) && $_SERVER["REQUEST_METHOD"] == "GET") {
-  $zone = new Zone($host_d_path);
-  send_ok($zone->add_record($matches[1], $matches[2], $matches[3]), "Record added");
+  $zones = new Zones($host_d_path);
+  send_ok($zones->add_record($matches[1], $matches[2], $matches[3]), "Record added");
 }
 else if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)$/", $request, &$matches) && $_SERVER["REQUEST_METHOD"] == "DELETE") {
-  $zone = new Zone($host_d_path);
-  send_ok($zone->delete_record($matches[1], $matches[2]), "Record deleted");
+  $zones = new Zones($host_d_path);
+  send_ok($zones->delete_record($matches[1], $matches[2]), "Record deleted");
 }
 else {
   send_404();

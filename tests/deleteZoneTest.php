@@ -6,7 +6,7 @@ class DeleteZoneTest extends PHPUnit_Framework_TestCase {
 
   function setUp() {
     $this->path = exec("mktemp -d -t test.XXXXXXXXXXX");
-    $this->zone = new Zone($this->path);
+    $this->zone = new Zones($this->path);
   }
 
   function tearDown() {

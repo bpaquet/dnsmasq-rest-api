@@ -1,6 +1,6 @@
 <?php
 
-class Zone {
+class Zones {
 
   function __construct($path) {
     $this->path = $path;
