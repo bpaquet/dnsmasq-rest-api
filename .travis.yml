@@ -1,7 +1,4 @@
 language: php
-before_script:
-  - composer self-update
-  - composer install
 script: phpunit --debug --include-path='www' --colors tests
 php:
   - 5.3
