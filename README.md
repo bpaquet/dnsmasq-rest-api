@@ -37,13 +37,13 @@ sudo cp /opt/dnsmasq-rest-api/www/config.example.php /opt/dnsmasq-rest-api/www/c
 * Test all is working fine
 
 ```
-curl http://localhost/dnsmasq-rest-api/zones
+$ curl http://localhost/dnsmasq-rest-api/zones
 []
-curl http://localhost/dnsmasq-rest-api/zones/myTest/127.0.0.1/localhost.test
+$ curl http://localhost/dnsmasq-rest-api/zones/myTest/127.0.0.1/localhost.test
 OK Record added
-curl http://localhost/dnsmasq-rest-api/reload
+$ curl http://localhost/dnsmasq-rest-api/reload
 
-curl -X DELETE http://localhost/dnsmasq-rest-api/zones/myTest
+$ curl -X DELETE http://localhost/dnsmasq-rest-api/zones/myTest
 OK Zone deleted
 ```
 
