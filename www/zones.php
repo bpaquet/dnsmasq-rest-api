@@ -72,7 +72,9 @@ class Zone {
     if (!isset($z[$ip])) {
       $z[$ip] = array();
     }
-    array_push($z[$ip], $alias);
+    if (!in_array($alias, $z[$ip])) {
+      array_push($z[$ip], $alias);
+    }
     return $this->dump_zone($file, $z);
   }
 

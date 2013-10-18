@@ -31,6 +31,12 @@ class WriteZoneTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(array("127.0.0.1" => array("toto"), "127.0.0.2" => array("tata")), $this->zone->get_zone("zone1"));
   }
 
+  function testAddNewRecordAlreadyExists() {
+    $this->assertEquals(true, $this->zone->add_record("zone1", "127.0.0.1", "toto"));
+    $this->assertEquals(array("zone1"), $this->zone->list_zones());
+    $this->assertEquals(array("127.0.0.1" => array("toto")), $this->zone->get_zone("zone1"));
+  }
+
   function testAddRecord() {
     $this->assertEquals(true, $this->zone->add_record("zone1", "127.0.0.1", "tata"));
     $this->assertEquals(array("zone1"), $this->zone->list_zones());
