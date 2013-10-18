@@ -11,9 +11,10 @@ class Zones {
       return array();
     }
     $zones = scandir($this->path);
+    $zones = array_filter($zones, function($x) {
+      return ! preg_match("/^\./", $x);
+    });
     sort($zones);
-    array_shift($zones);
-    array_shift($zones);
     return $zones;
   }
 
