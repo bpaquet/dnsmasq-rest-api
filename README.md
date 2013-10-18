@@ -34,6 +34,11 @@ sudo cp /opt/dnsmasq-rest-api/www/config.example.php /opt/dnsmasq-rest-api/www/c
 
 * Allow your web server to reload dnsmasq config
 
+```
+sudo cp /opt/dnsmasq-rest-api/config/sudo/dnsmasq /etc/sudoers.d/dnsmasq
+sudo chmod 0440 /etc/sudoers.d/dnsmasq
+```
+
 * Test all is working fine
 
 ```
