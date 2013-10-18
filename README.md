@@ -6,6 +6,8 @@ Dead simple REST Api for controlling (dnsmasq)[http://www.thekelleys.org.uk/dnsm
 API
 ---
 
+For each zone, dnsmasq-rest-api will write a file (named by the zone name) in the hosts dnsmasq directory.
+
 * List zones
 
 ```
