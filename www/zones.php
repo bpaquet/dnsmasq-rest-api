@@ -69,7 +69,7 @@ class Zone {
   function add_record($name, $ip, $alias) {
     $file = $this->get_zone_file($name);
     $z = $this->get_zone($name);
-    if (!$z[$ip]) {
+    if (!isset($z[$ip])) {
       $z[$ip] = array();
     }
     array_push($z[$ip], $alias);
