@@ -27,13 +27,13 @@ class Zone {
       return array();
     }
     $content = file_get_contents($file);
-    $content = split("\n", $content);
+    $content = explode("\n", $content);
     $content = array_filter($content, function($x) {
       return $x != "";
     });
     $map = array();
     foreach($content as $x) {
-      $s = split(" ", $x);
+      $s = explode(" ", $x);
       $ip = array_shift($s);
       $result = array();
       foreach($s as $ss) {
