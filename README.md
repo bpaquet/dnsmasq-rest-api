@@ -43,6 +43,8 @@ $ curl http://localhost/dnsmasq-rest-api/zones/myTest/127.0.0.1/localhost.test
 OK Record added
 $ curl http://localhost/dnsmasq-rest-api/reload
 
+$ host localhost.test 127.0.0.1
+
 $ curl -X DELETE http://localhost/dnsmasq-rest-api/zones/myTest
 OK Zone deleted
 ```
