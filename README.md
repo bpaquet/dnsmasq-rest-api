@@ -8,6 +8,8 @@ API
 
 For each zone, dnsmasq-rest-api will write a file (named by the zone name) in the hosts dnsmasq directory.
 
+Each zone can contains multiples lines, like a standard hosts file.
+
 * List zones
 
 ```
