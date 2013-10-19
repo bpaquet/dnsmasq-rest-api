@@ -29,8 +29,8 @@ class Controller {
       $this->output->setReturnCode(500, "Error");
       $this->output->setContentType('text/plain');
       $res = "Error";
-      if ($msg_error != "") {
-        $res .= " ".$msg_error;
+      if ($msg != "") {
+        $res .= " ".$msg;
       }
       $this->output->write($res."\n");
     }
