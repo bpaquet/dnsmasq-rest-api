@@ -1,7 +1,7 @@
 dnsmasq-rest-api
 ================
 
-[![Build Status](http://travis-ci.org/bpaquet/dnsmasq-rest-api.png)](http://travis-ci.org/bpaquet/dnsmasq-rest-api)
+[![Build Status](https://travis-ci.org/bpaquet/dnsmasq-rest-api.png)](https://travis-ci.org/bpaquet/dnsmasq-rest-api)
 
 Dead simple REST Api for controlling (dnsmasq)[http://www.thekelleys.org.uk/dnsmasq/doc.html] server.
 
