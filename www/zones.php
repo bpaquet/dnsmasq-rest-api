@@ -19,7 +19,7 @@ class Zones {
   }
 
   private function get_zone_file($name) {
-    return $this->path . "/" . $name;
+    return $this->path . DIRECTORY_SEPARATOR . $name;
   }
 
   function get_zone($name) {
