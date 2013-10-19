@@ -20,21 +20,23 @@ class Controller {
   }
 
   function send_json($o) {
+    $this->output->setReturnCode(200, "OK");
     $this->output->setContentType('application/json');
     $this->output->write(json_encode($o) . "\n");
   }
 
-  function send_ok($condition, $msg) {
+  function send_ok($condition, $msg, $msg_error) {
     if ($condition === false) {
       $this->output->setReturnCode(500, "Error");
       $this->output->setContentType('text/plain');
       $res = "Error";
-      if ($msg != "") {
-        $res .= " ".$msg;
+      if ($msg_error != "") {
+        $res .= " ".$msg_error;
       }
       $this->output->write($res."\n");
     }
     else {
+      $this->output->setReturnCode(200, "OK");
       $this->output->setContentType('text/plain');
       $res = "OK";
       if ($msg != "") {
@@ -56,7 +58,7 @@ class Controller {
       $z = $matches[1];
       if (in_array($z, $this->zones->list_zones())) {
         if ($method == "DELETE") {
-          $this->send_ok($this->zones->delete_zone($z), "Zone deleted");
+          $this->send_ok($this->zones->delete_zone($z), "Zone deleted", "");
         }
         else {
           $this->send_json($this->zones->get_zone($z));
@@ -67,10 +69,10 @@ class Controller {
       }
     }
     else if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "GET") {
-      $this->send_ok($this->zones->add_record($matches[1], $matches[2], $matches[3]), "Record added");
+      $this->send_ok($this->zones->add_record($matches[1], $matches[2], $matches[3]), "Record added", "");
     }
     else if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)$/", $request, $matches) && $method == "DELETE") {
-      $this->send_ok($this->zones->delete_record($matches[1], $matches[2]), "Record deleted");
+      $this->send_ok($this->zones->delete_record($matches[1], $matches[2]), "Record deleted", "");
     }
     else {
       $this->send_404();
