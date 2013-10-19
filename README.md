@@ -17,7 +17,7 @@ Requirments :
 * Install and configure your PHP Server
 
 ```
-curl http://rawgithub.com/bpaquet/dnsqmasq-rest-api | sudo bash
+curl http://rawgithub.com/bpaquet/dnsmasq-rest-api/master/install.sh | sudo bash
 ```
 
 API

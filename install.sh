@@ -7,20 +7,20 @@ echo "Installing dnsmasq-rest-api to $target."
 
 echo "Configuring dnsmasq."
 
-ln -sf $targetconfig/dnsmasq/dnsmasq-rest-api.conf /etc/dnsmasq.d/dnsmasq-rest-api.conf
+ln -sf $target/config/dnsmasq/dnsmasq-rest-api.conf /etc/dnsmasq.d/dnsmasq-rest-api.conf
 /etc/init.d/dnsmasq restart
 
 echo "Allow dnsmasq-rest-api to send signal to dnsmasq"
 
-cp $targetconfig/sudo/dnsmasq /etc/sudoers.d/dnsmasq
+cp $target/config/sudo/dnsmasq /etc/sudoers.d/dnsmasq
 chmod 0440 /etc/sudoers.d/dnsmasq
 
 echo "Configuring apache2"
 
-ln -sf $targetconfig/apache2/dnsmasq-rest-api.conf /etc/apache2/conf.d/dnsmasq-rest-api.conf
+ln -sf $target/config/apache2/dnsmasq-rest-api.conf /etc/apache2/conf.d/dnsmasq-rest-api.conf
 /etc/init.d/apache2 restart
 chown -R www-data $targetzones
-cp $targetwww/config.example.php $targetwww/config.php
+cp $target/www/config.example.php $target/www/config.php
 
 echo "Dnsmasq-rest-api installed."
 
