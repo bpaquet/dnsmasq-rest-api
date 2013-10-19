@@ -40,6 +40,16 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
       ->with($this->equalTo($s));
   }
 
+  function testWrongConfig() {
+    $this->controller = new Controller("/not_exist", "echo toto > /tmp/toto", "");
+    $this->stubOutput();
+
+    $this->expectSetReturnCode(500, "Error");
+    $this->expectSetContentType("text/plain");
+    $this->expectWrite("Error\n");
+    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.1/localhost.test");
+  }
+
   function test404() {
     $this->expectSetReturnCode(404, "Not found");
     $this->expectSetContentType("text/plain");

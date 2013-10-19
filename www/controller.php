@@ -24,12 +24,11 @@ class Controller {
     $this->output->write(json_encode($o) . "\n");
   }
 
-  function send_ok($condition, $msg = "") {
+  function send_ok($condition, $msg) {
     if ($condition === false) {
       $this->output->setReturnCode(500, "Error");
       $this->output->setContentType('text/plain');
       $res = "Error";
-      $this->output->write();
       if ($msg_error != "") {
         $res .= " ".$msg_error;
       }

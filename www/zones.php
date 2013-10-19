@@ -64,7 +64,7 @@ class Zones {
       }
       $s .= "\n";
     }
-    return file_put_contents($file, $s);
+    return @file_put_contents($file, $s);
   }
 
   function add_record($name, $ip, $alias) {
