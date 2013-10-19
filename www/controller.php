@@ -25,7 +25,7 @@ class Controller {
   }
 
   function send_ok($condition, $msg = "") {
-    if ($res === false) {
+    if ($condition === false) {
       $this->output->setReturnCode(500, "Error");
       $this->output->setContentType('text/plain');
       $res = "Error";
