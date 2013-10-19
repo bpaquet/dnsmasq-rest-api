@@ -1,6 +1,9 @@
-#!/bin/bash -e
+#!/bin/bash
+
+set -e
 
 target=/opt/dnsmasq-rest-api/
+
 echo "Installing dnsmasq-rest-api to $target."
 
 [ -d $target ] || git clone git://github.com/bpaquet/dnsmasq-rest-api.git $TARGET
