@@ -15,6 +15,7 @@ This procedure has been tested under Ubuntu 12.04.
 Requirments :
 * Install dnsmasq
 * Install and configure your PHP Server
+* Ensure you have, git, curl, nslookup and killall installed
 
 ```
 curl http://rawgithub.com/bpaquet/dnsmasq-rest-api/master/install.sh | sudo bash
