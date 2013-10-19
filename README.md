@@ -16,58 +16,8 @@ Requirments :
 * Install dnsmasq
 * Install and configure your PHP Server
 
-Automatic procedure :
-
 ```
-sudo git clone https://github.com/bpaquet/dnsmasq-rest-api.git /opt/dnsmasq-rest-api
-cd /opt/dnsmasq-rest-api
-sudo ./install.sh
-```
-
-Manual procedure :
-
-* Checkout dnsmasq-rest-api
-
-```
-sudo git clone https://github.com/bpaquet/dnsmasq-rest-api.git /opt/dnsmasq-rest-api
-```
-
-* Update your dnsmasq config to use zones files provided by dnsmasq-rest-api
-
-```
-sudo ln -s /opt/dnsmasq-rest-api/config/dnsmasq/dnsmasq-rest-api.conf /etc/dnsmasq.d/dnsmasq-rest-api.conf
-sudo /etc/init.d/dnsmasq restart
-```
-
-* Expose dnsmasq-rest-api in your PHP Server
-
-```
-sudo ln -s /opt/dnsmasq-rest-api/config/apache2/dnsmasq-rest-api.conf /etc/apache2/conf.d/dnsmasq-rest-api.conf
-sudo /etc/init.d/apache2 restart
-sudo chown -R www-data /opt/dnsmasq-rest-api/zones
-sudo cp /opt/dnsmasq-rest-api/www/config.example.php /opt/dnsmasq-rest-api/www/config.php
-```
-
-* Allow your web server to reload dnsmasq config
-
-```
-sudo cp /opt/dnsmasq-rest-api/config/sudo/dnsmasq /etc/sudoers.d/dnsmasq
-sudo chmod 0440 /etc/sudoers.d/dnsmasq
-```
-
-* Test all is working fine
-
-```
-$ curl http://localhost/dnsmasq-rest-api/zones
-[]
-$ curl http://localhost/dnsmasq-rest-api/zones/myTest/127.0.0.1/localhost.test
-OK Record added
-$ curl http://localhost/dnsmasq-rest-api/reload
-
-$ host localhost.test 127.0.0.1
-
-$ curl -X DELETE http://localhost/dnsmasq-rest-api/zones/myTest
-OK Zone deleted
+curl http://rawgithub.com/bpaquet/dnsqmasq-rest-api | sudo bash
 ```
 
 API
