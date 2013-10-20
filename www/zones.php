@@ -82,6 +82,11 @@ class Zones {
     return $this->dump_zone($file, $z);
   }
 
+  function set_zone($name, $z) {
+    $file = $this->get_zone_file($name);
+    return $this->dump_zone($file, $z);
+  }
+
   function delete_record($name, $ip) {
     $file = $this->get_zone_file($name);
     $z = $this->get_zone($name);

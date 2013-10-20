@@ -19,11 +19,10 @@ class Output {
 
 }
 
-
 $controller = new Controller($host_d_path, $reload_command, $lease_file);
 $controller->setOutput(new Output());
 
 $request = $_SERVER["REQUEST_URI"];
 $method = $_SERVER["REQUEST_METHOD"];
 
-$controller->dispatch($method, $request);
+$controller->dispatch($method, $request, file_get_contents('php://input'));

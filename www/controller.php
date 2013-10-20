@@ -19,10 +19,15 @@ class Controller {
     $this->output->write($msg."\n");
   }
 
-  function send_json($o) {
+  function send_json($o, $is_hash = false) {
     $this->output->setReturnCode(200, "OK");
     $this->output->setContentType('application/json');
-    $this->output->write(json_encode($o) . "\n");
+    if ($is_hash && count($o) == 0) {
+      $this->output->write("{}" . "\n");
+    }
+    else {
+      $this->output->write(json_encode($o) . "\n");
+    }
   }
 
   function send_ok($condition, $msg, $msg_error) {
@@ -50,33 +55,67 @@ class Controller {
     if (preg_match("/reload$/", $request)) {
       exec($reload_command, $out, $return);
       $this->send_ok($return == 0, "Dnmasq config reloaded", "Unable to reload dnmasq config ".implode("\n", $out));
+      return;
     }
-    else if (preg_match("/zones$/", $request)) {
+    if (preg_match("/backup$/", $request)) {
+      $zz = $this->zones->list_zones();
+      $result = array();
+      foreach($zz as $z) {
+        $result[$z] = $this->zones->get_zone($z);
+      }
+      $this->send_json($result);
+      return;
+    }
+    if (preg_match("/restore$/", $request) && $method == "POST") {
+      $content = json_decode($body, true);
+      if ($content === null) {
+        $this->send_ok(false, "", "Bad json data");
+        return;
+      }
+      $zz = $this->zones->list_zones();
+      foreach($zz as $z) {
+        if (!$this->zones->delete_zone($z)) {
+          send_ok(false, "", "Unable to delete zone ".$z);
+          return;
+        };
+      }
+      foreach(array_keys($content) as $z) {
+        if (!$this->zones->set_zone($z, $content[$z])) {
+          send_ok(false, "", "Unable to import zone ".$z);
+          return;
+        }
+      }
+      $this->send_ok(true, "All zones restored : ".implode($this->zones->list_zones(), " "), "");
+      return;
+    }
+    if (preg_match("/zones$/", $request)) {
       $this->send_json($this->zones->list_zones());
+      return;
     }
-    else if (preg_match("/zones\/([^\/]*)$/", $request, $matches)) {
+    if (preg_match("/zones\/([^\/]*)$/", $request, $matches)) {
       $z = $matches[1];
       if (in_array($z, $this->zones->list_zones())) {
         if ($method == "DELETE") {
           $this->send_ok($this->zones->delete_zone($z), "Zone deleted", "");
         }
         else {
-          $this->send_json($this->zones->get_zone($z));
+          $this->send_json($this->zones->get_zone($z), true);
         }
       }
       else {
         $this->send_404("Zone not found " . $z);
       }
+      return;
     }
-    else if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "GET") {
+    if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "GET") {
       $this->send_ok($this->zones->add_record($matches[1], $matches[2], $matches[3]), "Record added", "");
+      return;
     }
-    else if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)$/", $request, $matches) && $method == "DELETE") {
+    if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)$/", $request, $matches) && $method == "DELETE") {
       $this->send_ok($this->zones->delete_record($matches[1], $matches[2]), "Record deleted", "");
+      return;
     }
-    else {
-      $this->send_404();
-    }
+    $this->send_404();
   }
 
 }

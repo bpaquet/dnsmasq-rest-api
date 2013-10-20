@@ -128,6 +128,18 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->stubOutput();
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("text/plain");
+    $this->expectWrite("OK Record deleted\n");
+    $this->controller->dispatch("DELETE", "/zones/toto/records/127.0.0.2");
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("application/json");
+    $this->expectWrite('{}'."\n");
+    $this->controller->dispatch("GET", "/zones/toto");
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("text/plain");
     $this->expectWrite("OK Zone deleted\n");
     $this->controller->dispatch("DELETE", "/zones/toto");
 
@@ -138,4 +150,55 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->controller->dispatch("GET", "/zones");
   }
 
+  function testBackup() {
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("text/plain");
+    $this->expectWrite("OK Record added\n");
+    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.1/localhost.test");
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("text/plain");
+    $this->expectWrite("OK Record added\n");
+    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.1/localhost.test2");
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("text/plain");
+    $this->expectWrite("OK Record added\n");
+    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.2/localhost.0");
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("application/json");
+    $this->expectWrite('{"toto":{"127.0.0.1":["localhost.test","localhost.test2"],"127.0.0.2":["localhost.0"]}}'."\n");
+    $this->controller->dispatch("GET", "/backup");
+  }
+
+  function testRestore() {
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("text/plain");
+    $this->expectWrite("OK All zones restored : titi toto\n");
+    $this->controller->dispatch("POST", "/restore", '{"titi":{},"toto":{"127.0.0.1":["localhost.test","localhost.test2"],"127.0.0.2":["localhost.0"]}}');
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("application/json");
+    $this->expectWrite('["titi","toto"]'."\n");
+    $this->controller->dispatch("GET", "/zones");
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("application/json");
+    $this->expectWrite('{"127.0.0.1":["localhost.test","localhost.test2"],"127.0.0.2":["localhost.0"]}'."\n");
+    $this->controller->dispatch("GET", "/zones/toto");
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("application/json");
+    $this->expectWrite('{}'."\n");
+    $this->controller->dispatch("GET", "/zones/titi");
+
+  }
 }
