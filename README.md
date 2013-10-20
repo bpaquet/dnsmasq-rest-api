@@ -3,7 +3,7 @@ dnsmasq-rest-api
 
 [![Build Status](https://travis-ci.org/bpaquet/dnsmasq-rest-api.png)](https://travis-ci.org/bpaquet/dnsmasq-rest-api)
 
-Dead simple REST Api for controlling (dnsmasq)[http://www.thekelleys.org.uk/dnsmasq/doc.html] server.
+Dead simple REST Api for controlling [dnsmasq](http://www.thekelleys.org.uk/dnsmasq/doc.html) server.
 
 Why in PHP ? Because it's easy to deploy : no rbenv, ruby, java or pyhton lib to install !
 
