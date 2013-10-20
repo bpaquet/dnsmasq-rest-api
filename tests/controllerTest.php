@@ -151,7 +151,6 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
   }
 
   function testBackup() {
-    $this->stubOutput();
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("text/plain");
     $this->expectWrite("OK Record added\n");
@@ -173,6 +172,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("application/json");
     $this->expectWrite('{"toto":{"127.0.0.1":["localhost.test","localhost.test2"],"127.0.0.2":["localhost.0"]}}'."\n");
+    $this->controller->dispatch("GET", "/backup");
+  }
+
+  function testEmptyBackup() {
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("application/json");
+    $this->expectWrite('{}'."\n");
     $this->controller->dispatch("GET", "/backup");
   }
 

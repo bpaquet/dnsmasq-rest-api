@@ -63,7 +63,7 @@ class Controller {
       foreach($zz as $z) {
         $result[$z] = $this->zones->get_zone($z);
       }
-      $this->send_json($result);
+      $this->send_json($result, true);
       return;
     }
     if (preg_match("/restore$/", $request) && $method == "POST") {
