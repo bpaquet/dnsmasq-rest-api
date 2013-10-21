@@ -12,14 +12,20 @@ Installation
 
 This procedure has been tested under Ubuntu 12.04.
 
-Requirments :
+Requirements :
 * Install dnsmasq
 * Install and configure your PHP Server
 * Ensure you have, git, curl, nslookup and killall installed
 
+Automated install :
+
 ```
 curl http://rawgithub.com/bpaquet/dnsmasq-rest-api/master/install.sh | sudo bash
 ```
+
+Manual install :
+
+Please read the [install script](https://raw.github.com/bpaquet/dnsmasq-rest-api/master/install.sh).
 
 API
 ---
