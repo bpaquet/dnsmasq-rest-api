@@ -28,4 +28,4 @@ if (strlen($_SERVER["QUERY_STRING"]) > 0) {
 }
 $method = $_SERVER["REQUEST_METHOD"];
 
-$controller->dispatch($method, $request, file_get_contents('php://input'), $_SERVER["argv"]);
+$controller->dispatch($method, $request, file_get_contents('php://input'), $_GET);

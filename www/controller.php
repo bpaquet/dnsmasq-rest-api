@@ -53,18 +53,18 @@ class Controller {
     }
   }
 
-  function dispatch($method, $request, $body = null, $argv = null) {
+  function dispatch($method, $request, $body = null, $filter = null) {
     if (preg_match("/leases$/", $request)) {
       if (!$this->leases->exists()) {
         $this->send_404("Lease file not found");
         return;
       }
-      if (count($argv) == 0) {
+      if (count($filter) == 0) {
         $this->send_json($this->leases->read_all());
       }
       else {
-        $keys = array_keys($_GET);
-        $this->send_json($this->leases->find($keys[0], $_GET[$keys[0]]));
+        $keys = array_keys($filter);
+        $this->send_json($this->leases->find($keys[0], $filter[$keys[0]]));
       }
       return;
     }

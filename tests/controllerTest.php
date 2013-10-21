@@ -218,7 +218,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
   function testReadLeasesFilter() {
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("application/json");
-    $this->expectWrite('[{"timestamp":"1384349107","mac":"52:54:00:68:4d:74","ip":"10.1.126.4","hostname":"toto","client_id":"01:52:54:00:68:4d:74"},{"timestamp":"1384349327","mac":"52:54:00:2a:36:c2","ip":"10.1.118.125","hostname":"*","client_id":"*"}]'."\n");
+    $this->expectWrite('[{"timestamp":"1384349327","mac":"52:54:00:2a:36:c2","ip":"10.1.118.125","hostname":"*","client_id":"*"}]'."\n");
     $this->controller->dispatch("GET", "/leases", null, array("ip" => "118.125"));
   }
 
