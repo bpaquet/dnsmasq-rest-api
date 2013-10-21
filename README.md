@@ -25,9 +25,9 @@ curl http://rawgithub.com/bpaquet/dnsmasq-rest-api/master/install.sh | sudo bash
 
 Manual install :
 
-Please read the [install script](https://raw.github.com/bpaquet/dnsmasq-rest-api/master/install.sh).
+Please read the [install script](https://github.com/bpaquet/dnsmasq-rest-api/blob/master/install.sh).
 
-Example of config is [here](https://raw.github.com/bpaquet/dnsmasq-rest-api/master/www/config.example.php).
+Example of config is [here](https://github.com/bpaquet/dnsmasq-rest-api/blob/master/www/config.example.php).
 
 API
 ---
