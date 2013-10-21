@@ -29,6 +29,18 @@ Please read the [install script](https://github.com/bpaquet/dnsmasq-rest-api/blo
 
 Example of config is [here](https://github.com/bpaquet/dnsmasq-rest-api/blob/master/www/config.example.php).
 
+### Security token
+
+You can set a security token is config file.
+
+In this case, you have to set the ``X-Auth-Token`` header in all your HTTP request.
+
+Example :
+```
+$ curl -H 'X-Auth-Token: mySecurityToken' http://localhost/dnsmasq-rest-api/zones
+["myZone"]
+```
+
 API
 ---
 
