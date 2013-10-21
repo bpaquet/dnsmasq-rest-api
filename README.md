@@ -27,6 +27,8 @@ Manual install :
 
 Please read the [install script](https://raw.github.com/bpaquet/dnsmasq-rest-api/master/install.sh).
 
+Example of config is [here](https://raw.github.com/bpaquet/dnsmasq-rest-api/master/www/config.example.php).
+
 API
 ---
 
