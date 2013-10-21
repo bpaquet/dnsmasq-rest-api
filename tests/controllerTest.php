@@ -6,7 +6,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
 
   function setUp() {
     $this->path = exec("mktemp -d -t test.XXXXXXXXXXX");
-    $this->controller = new Controller($this->path, "echo toto > /tmp/toto", "");
+    $this->controller = new Controller($this->path, "echo toto > /tmp/toto", "tests/data/leases");
     $this->stubOutput();
   }
 
@@ -207,4 +207,19 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->controller->dispatch("GET", "/zones/titi");
 
   }
+
+  function testReadLeases() {
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("application/json");
+    $this->expectWrite('[{"timestamp":"1384349107","mac":"52:54:00:68:4d:74","ip":"10.1.126.4","hostname":"toto","client_id":"01:52:54:00:68:4d:74"},{"timestamp":"1384349327","mac":"52:54:00:2a:36:c2","ip":"10.1.118.125","hostname":"*","client_id":"*"}]'."\n");
+    $this->controller->dispatch("GET", "/leases");
+  }
+
+  function testReadLeasesFilter() {
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("application/json");
+    $this->expectWrite('[{"timestamp":"1384349107","mac":"52:54:00:68:4d:74","ip":"10.1.126.4","hostname":"toto","client_id":"01:52:54:00:68:4d:74"},{"timestamp":"1384349327","mac":"52:54:00:2a:36:c2","ip":"10.1.118.125","hostname":"*","client_id":"*"}]'."\n");
+    $this->controller->dispatch("GET", "/leases", null, array("ip" => "118.125"));
+  }
+
 }

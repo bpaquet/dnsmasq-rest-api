@@ -1,12 +1,14 @@
 <?php
 
 require_once 'zones.php';
+require_once 'leases.php';
 
 class Controller {
 
   function __construct($host_d_path, $reload_command, $lease_file) {
     $this->zones = new Zones($host_d_path);
     $this->reload_command = $reload_command;
+    $this->leases = new LeasesReader($lease_file);
   }
 
   function setOutput($output) {
@@ -51,7 +53,15 @@ class Controller {
     }
   }
 
-  function dispatch($method, $request, $body = null) {
+  function dispatch($method, $request, $body = null, $argv = null) {
+    if (preg_match("/leases$/", $request)) {
+      if (!$this->leases->exists()) {
+        $this->send_404("Lease file not found");
+        return;
+      }
+      $this->send_json($this->leases->read_all());
+      return;
+    }
     if (preg_match("/reload$/", $request)) {
       exec($reload_command, $out, $return);
       $this->send_ok($return == 0, "Dnmasq config reloaded", "Unable to reload dnmasq config ".implode("\n", $out));
