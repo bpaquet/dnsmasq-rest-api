@@ -19,8 +19,17 @@ class Output {
 
 }
 
+$output = new Output();
+
+if (strlen($security_token) > 0) {
+  if ($_SERVER["HTTP_X_AUTH_TOKEN"] != $security_token) {
+    $output->setReturnCode(401, "Not authorized");
+    die("Not authorized");
+  }
+}
+
 $controller = new Controller($host_d_path, $reload_command, $lease_file);
-$controller->setOutput(new Output());
+$controller->setOutput($output);
 
 $request = $_SERVER["REQUEST_URI"];
 if (strlen($_SERVER["QUERY_STRING"]) > 0) {
