@@ -59,7 +59,13 @@ class Controller {
         $this->send_404("Lease file not found");
         return;
       }
-      $this->send_json($this->leases->read_all());
+      if (count($argv) == 0) {
+        $this->send_json($this->leases->read_all());
+      }
+      else {
+        $keys = array_keys($_GET);
+        $this->send_json($this->leases->find($keys[0], $_GET[$keys[0]]));
+      }
       return;
     }
     if (preg_match("/reload$/", $request)) {
