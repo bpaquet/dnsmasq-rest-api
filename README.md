@@ -12,14 +12,20 @@ Installation
 
 This procedure has been tested under Ubuntu 12.04.
 
-Requirments :
+Requirements :
 * Install dnsmasq
 * Install and configure your PHP Server
 * Ensure you have, git, curl, nslookup and killall installed
 
+Automated install :
+
 ```
 curl http://rawgithub.com/bpaquet/dnsmasq-rest-api/master/install.sh | sudo bash
 ```
+
+Manual install :
+
+Please read the [install script](https://raw.github.com/bpaquet/dnsmasq-rest-api/master/install.sh).
 
 API
 ---
@@ -90,3 +96,21 @@ $ cat backup
 $ curl -f -s -d @backup http://localhost/dnsmasq-rest-api/restore
 OK All zones restored : myZone
 ```
+
+### Leases
+
+* To get all leases from dnsmasq
+
+```
+$ http://localhost/dnsmasq-rest-api/leases
+[{"timestamp":"1384349107","mac":"52:54:00:68:4d:74","ip":"10.1.126.4","hostname":"toto","client_id":"01:52:54:00:68:4d:74"},{"timestamp":"1384349327","mac":"52:54:00:2a:36:c2","ip":"10.1.118.125","hostname":"*","client_id":"*"}]
+```
+
+* To filter results
+
+```
+$ http://localhost/dnsmasq-rest-api/leases?ip=126
+[{"timestamp":"1384349107","mac":"52:54:00:68:4d:74","ip":"10.1.126.4","hostname":"toto","client_id":"01:52:54:00:68:4d:74"}]
+```
+
+Available filters : ``mac``, ``ip``, ``timestamp``, ``hostname``, ``client_id``. Filter values are regex.
