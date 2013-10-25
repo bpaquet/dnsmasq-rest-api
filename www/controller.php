@@ -69,7 +69,7 @@ class Controller {
       return;
     }
     if (preg_match("/reload$/", $request) && $method == "POST") {
-      exec($reload_command, $out, $return);
+      exec($this->reload_command, $out, $return);
       $this->send_ok($return == 0, "Dnmasq config reloaded", "Unable to reload dnmasq config ".implode("\n", $out));
       return;
     }

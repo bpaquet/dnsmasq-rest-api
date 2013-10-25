@@ -6,7 +6,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
 
   function setUp() {
     $this->path = exec("mktemp -d -t test.XXXXXXXXXXX");
-    $this->controller = new Controller($this->path, "echo toto > /tmp/toto", "tests/data/leases");
+    $this->controller = new Controller($this->path, "echo toto > output", "tests/data/leases");
     $this->stubOutput();
   }
 
@@ -55,6 +55,19 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->expectSetContentType("text/plain");
     $this->expectWrite("Not found !\n");
     $this->controller->dispatch("GET", "/toto");
+  }
+
+  function testReload() {
+    if (file_exists("output")) {
+      unlink("output");
+    }
+
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("text/plain");
+    $this->expectWrite("OK Dnmasq config reloaded\n");
+    $this->controller->dispatch("POST", "/reload");
+    $this->assertEquals("toto\n", file_get_contents("output"));
+    unlink("output");
   }
 
   function testListZones() {
