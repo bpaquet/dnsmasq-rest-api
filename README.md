@@ -31,14 +31,20 @@ Example of config is [here](https://github.com/bpaquet/dnsmasq-rest-api/blob/mas
 
 ### Security token
 
-You can set a security token is config file.
+You can set a security token for reading and writing in config file.
 
 In this case, you have to set the ``X-Auth-Token`` header in all your HTTP request.
 
-Example :
+For reading : `$security_token_read = "mySecurityToken";` :
 ```
 $ curl -H 'X-Auth-Token: mySecurityToken' http://localhost/dnsmasq-rest-api/zones
 ["myZone"]
+```
+
+For writing : `$security_token_read = "mySecurityToken2";` :
+```
+$ curl -H 'X-Auth-Token: mySecurityToken2' -X POST http://localhost/dnsmasq-rest-api/reload
+OK Dnmasq config reloaded
 ```
 
 API
