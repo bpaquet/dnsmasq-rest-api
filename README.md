@@ -67,9 +67,18 @@ OK Zone deleted
 * There is no create zone command. Just add a record into a new zone
 
 ```
-$ curl -X POST http://localhost/dnsmasq-rest-api/zones/myZone/records/127.0.0.1/localhost
+$ curl -X POST http://localhost/dnsmasq-rest-api/zones/myZone/127.0.0.1/localhost
 OK Record added
 ```
+
+Another syntax :
+
+```
+$ curl -X POST -d '{"127.0.0.1":["localhost"]}' http://localhost/dnsmasq-rest-api/zones/myZone
+OK Record added
+```
+
+You can set multiple records with one call.
 
 * List zone records
 
@@ -81,7 +90,7 @@ $ curl http://localhost/dnsmasq-rest-api/zones/myZone
 * Multiple hosts for same IP are supported
 
 ```
-$ curl -X POST http://localhost/dnsmasq-rest-api/zones/myZone/records/127.0.0.1/localhost2
+$ curl -X POST http://localhost/dnsmasq-rest-api/zones/myZone/127.0.0.1/localhost2
 OK Record added
 $ curl http://localhost/dnsmasq-rest-api/zones/myZone
 {"127.0.0.1":["localhost","localhost2"]}

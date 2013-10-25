@@ -110,6 +110,25 @@ class Controller {
     }
     if (preg_match("/zones\/([^\/]*)$/", $request, $matches)) {
       $z = $matches[1];
+      if ($method == "POST") {
+        $content = json_decode($body, true);
+        if ($content === null) {
+          $this->send_ok(false, "", "Bad json data");
+          return;
+        }
+        foreach($content as $k => $v) {
+          if (is_array($v) && is_string($k)) {
+            foreach ($v as $vv) {
+              if (!$this->zones->add_record($matches[1], $k, $vv)) {
+                $this->send_ok(false, "", "Unable to add record ".$k." ".$vv);
+                return;
+              }
+            }
+          }
+        }
+        $this->send_ok(true, "Record added", "");
+        return;
+      }
       if (in_array($z, $this->zones->list_zones())) {
         if ($method == "DELETE") {
           $this->send_ok($this->zones->delete_zone($z), "Zone deleted", "");
@@ -123,11 +142,11 @@ class Controller {
       }
       return;
     }
-    if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "POST") {
+    if (preg_match("/zones\/([^\/]*)\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "POST") {
       $this->send_ok($this->zones->add_record($matches[1], $matches[2], $matches[3]), "Record added", "");
       return;
     }
-    if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)$/", $request, $matches) && $method == "DELETE") {
+    if (preg_match("/zones\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "DELETE") {
       $this->send_ok($this->zones->delete_record($matches[1], $matches[2]), "Record deleted", "");
       return;
     }
