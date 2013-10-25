@@ -68,7 +68,7 @@ class Controller {
       }
       return;
     }
-    if (preg_match("/reload$/", $request)) {
+    if (preg_match("/reload$/", $request) && $method == "POST") {
       exec($reload_command, $out, $return);
       $this->send_ok($return == 0, "Dnmasq config reloaded", "Unable to reload dnmasq config ".implode("\n", $out));
       return;
@@ -123,7 +123,7 @@ class Controller {
       }
       return;
     }
-    if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "GET") {
+    if (preg_match("/zones\/([^\/]*)\/records\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "POST") {
       $this->send_ok($this->zones->add_record($matches[1], $matches[2], $matches[3]), "Record added", "");
       return;
     }

@@ -55,7 +55,7 @@ OK Zone deleted
 * There is no create zone command. Just add a record into a new zone
 
 ```
-$ curl http://localhost/dnsmasq-rest-api/zones/myZone/records/127.0.0.1/localhost
+$ curl -X POST http://localhost/dnsmasq-rest-api/zones/myZone/records/127.0.0.1/localhost
 OK Record added
 ```
 
@@ -66,10 +66,10 @@ $ curl http://localhost/dnsmasq-rest-api/zones/myZone
 {"127.0.0.1":["localhost"]}
 ```
 
-* Multiple host for same IP is supported
+* Multiple hosts for same IP are supported
 
 ```
-$ curl http://localhost/dnsmasq-rest-api/zones/myZone/records/127.0.0.1/localhost2
+$ curl -X POST http://localhost/dnsmasq-rest-api/zones/myZone/records/127.0.0.1/localhost2
 OK Record added
 $ curl http://localhost/dnsmasq-rest-api/zones/myZone
 {"127.0.0.1":["localhost","localhost2"]}
@@ -78,7 +78,7 @@ $ curl http://localhost/dnsmasq-rest-api/zones/myZone
 * Reload dnsmasq config : MUST be done after a change or a batch of changes,to force dnsmasq to re read config files
 
 ```
-$ curl http://localhost/dnsmasq-rest-api/reload
+$ curl -X POST http://localhost/dnsmasq-rest-api/reload
 OK Dnmasq config reloaded
 ```
 
@@ -93,9 +93,9 @@ $ cat backup
 ```
 
 * Restore all zones from a backup file
- 
+
 ```
-$ curl -f -s -d @backup http://localhost/dnsmasq-rest-api/restore
+$ curl -f -s -d @backup -X POST http://localhost/dnsmasq-rest-api/restore
 OK All zones restored : myZone
 ```
 

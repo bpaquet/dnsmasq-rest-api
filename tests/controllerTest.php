@@ -47,7 +47,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->expectSetReturnCode(500, "Error");
     $this->expectSetContentType("text/plain");
     $this->expectWrite("Error\n");
-    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.1/localhost.test");
+    $this->controller->dispatch("POST", "/zones/toto/records/127.0.0.1/localhost.test");
   }
 
   function test404() {
@@ -81,7 +81,7 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("text/plain");
     $this->expectWrite("OK Record added\n");
-    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.1/localhost.test");
+    $this->controller->dispatch("POST", "/zones/toto/records/127.0.0.1/localhost.test");
 
     $this->stubOutput();
     $this->expectSetReturnCode(200, "OK");
@@ -99,13 +99,13 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("text/plain");
     $this->expectWrite("OK Record added\n");
-    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.1/localhost.test2");
+    $this->controller->dispatch("POST", "/zones/toto/records/127.0.0.1/localhost.test2");
 
     $this->stubOutput();
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("text/plain");
     $this->expectWrite("OK Record added\n");
-    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.2/localhost.toto");
+    $this->controller->dispatch("POST", "/zones/toto/records/127.0.0.2/localhost.toto");
 
     $this->stubOutput();
     $this->expectSetReturnCode(200, "OK");
@@ -154,19 +154,19 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("text/plain");
     $this->expectWrite("OK Record added\n");
-    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.1/localhost.test");
+    $this->controller->dispatch("POST", "/zones/toto/records/127.0.0.1/localhost.test");
 
     $this->stubOutput();
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("text/plain");
     $this->expectWrite("OK Record added\n");
-    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.1/localhost.test2");
+    $this->controller->dispatch("POST", "/zones/toto/records/127.0.0.1/localhost.test2");
 
     $this->stubOutput();
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("text/plain");
     $this->expectWrite("OK Record added\n");
-    $this->controller->dispatch("GET", "/zones/toto/records/127.0.0.2/localhost.0");
+    $this->controller->dispatch("POST", "/zones/toto/records/127.0.0.2/localhost.0");
 
     $this->stubOutput();
     $this->expectSetReturnCode(200, "OK");
