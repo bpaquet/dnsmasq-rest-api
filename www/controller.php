@@ -146,6 +146,10 @@ class Controller {
       $this->send_ok($this->zones->add_record($matches[1], $matches[2], $matches[3]), "Record added", "");
       return;
     }
+    if (preg_match("/zones\/([^\/]*)\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "DELETE") {
+      $this->send_ok($this->zones->delete_record($matches[1], $matches[2], $matches[3]), "Record deleted", "");
+      return;
+    }
     if (preg_match("/zones\/([^\/]*)\/([^\/]*)$/", $request, $matches) && $method == "DELETE") {
       $this->send_ok($this->zones->delete_record($matches[1], $matches[2]), "Record deleted", "");
       return;

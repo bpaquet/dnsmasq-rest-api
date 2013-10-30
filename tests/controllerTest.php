@@ -137,7 +137,19 @@ class ControllerTest extends PHPUnit_Framework_TestCase {
     $this->expectSetReturnCode(200, "OK");
     $this->expectSetContentType("text/plain");
     $this->expectWrite("OK Record deleted\n");
-    $this->controller->dispatch("DELETE", "/zones/toto/127.0.0.1");
+    $this->controller->dispatch("DELETE", "/zones/toto/127.0.0.1/localhost.test");
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("application/json");
+    $this->expectWrite('{"127.0.0.1":["localhost.test2"],"127.0.0.2":["localhost.toto"]}'."\n");
+    $this->controller->dispatch("GET", "/zones/toto");
+
+    $this->stubOutput();
+    $this->expectSetReturnCode(200, "OK");
+    $this->expectSetContentType("text/plain");
+    $this->expectWrite("OK Record deleted\n");
+    $this->controller->dispatch("DELETE", "/zones/toto/127.0.0.1/localhost.test2");
 
     $this->stubOutput();
     $this->expectSetReturnCode(200, "OK");

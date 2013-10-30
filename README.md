@@ -93,6 +93,20 @@ $ curl http://localhost/dnsmasq-rest-api/zones/myZone
 {"127.0.0.1":["localhost"]}
 ```
 
+* Delete records
+
+```
+$ curl -X DELETE http://localhost/dnsmasq-rest-api/zones/myZone/127.0.0.1
+OK Record deleted
+```
+
+Or
+
+```
+$ curl -X DELETE http://localhost/dnsmasq-rest-api/zones/myZone/127.0.0.1/localhost
+OK Record deleted
+```
+
 * Multiple hosts for same IP are supported
 
 ```

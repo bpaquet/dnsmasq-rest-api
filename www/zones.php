@@ -87,10 +87,28 @@ class Zones {
     return $this->dump_zone($file, $z);
   }
 
-  function delete_record($name, $ip) {
+  function delete_record($name, $ip, $alias = null) {
     $file = $this->get_zone_file($name);
     $z = $this->get_zone($name);
-    unset($z[$ip]);
+    if ($z[$ip]) {
+      if ($alias == null) {
+        unset($z[$ip]);
+      }
+      else {
+        $n = array();
+        foreach($z[$ip] as $a) {
+          if ($a !== $alias) {
+            array_push($n, $a);
+          }
+        }
+        if (count($n) == 0) {
+          unset($z[$ip]);
+        }
+        else {
+          $z[$ip] = $n;
+        }
+      }
+    }
     return $this->dump_zone($file, $z);
   }
 
