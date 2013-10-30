@@ -25,7 +25,7 @@ $method = $_SERVER["REQUEST_METHOD"];
 
 if ($method == "GET") {
   if (strlen($security_token_read) > 0) {
-    if ($_SERVER["HTTP_X_AUTH_TOKEN"] != $security_token_read) {
+    if (!isset($_SERVER["HTTP_X_AUTH_TOKEN"]) || $_SERVER["HTTP_X_AUTH_TOKEN"] != $security_token_read) {
       $output->setReturnCode(401, "Not authorized");
       die("Not authorized\n");
     }
@@ -33,7 +33,7 @@ if ($method == "GET") {
 }
 else {
   if (strlen($security_token_write) > 0) {
-    if ($_SERVER["HTTP_X_AUTH_TOKEN"] != $security_token_write) {
+    if (!isset($_SERVER["HTTP_X_AUTH_TOKEN"]) || $_SERVER["HTTP_X_AUTH_TOKEN"] != $security_token_write) {
       $output->setReturnCode(401, "Not authorized");
       die("Not authorized\n");
     }
