@@ -44,6 +44,10 @@ class Zones {
           array_push($result, $ss);
         }
       }
+      if (isset($map[$ip])) {
+        $result = array_merge($result, $map[$ip]);
+      }
+      sort($result);
       $map[$ip] = $result;
     }
     return $map;

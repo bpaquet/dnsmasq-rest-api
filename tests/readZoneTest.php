@@ -14,7 +14,7 @@ class ReadZoneTest extends PHPUnit_Framework_TestCase {
   }
 
   function testListZone() {
-    $this->assertEquals(array("empty", "zone1", "zone2"), $this->zone->list_zones());
+    $this->assertEquals(array("empty", "zone1", "zone2", "zone3"), $this->zone->list_zones());
   }
 
   function testGetWrongZone() {
@@ -23,6 +23,10 @@ class ReadZoneTest extends PHPUnit_Framework_TestCase {
 
   function testGetZone2() {
     $this->assertEquals(array("140.1.2.3" => array("abc")), $this->zone->get_zone("zone2"));
+  }
+
+  function testGetZone3() {
+    $this->assertEquals(array("127.0.0.1" => array("toto1", "toto3"), "127.0.0.2" => array("toto2")), $this->zone->get_zone("zone3"));
   }
 
   function testGetZone1() {
