@@ -41,7 +41,7 @@ $ curl -H 'X-Auth-Token: mySecurityToken' http://localhost/dnsmasq-rest-api/zone
 ["myZone"]
 ```
 
-For writing : `$security_token_read = "mySecurityToken2";` :
+For writing : `$security_token_write = "mySecurityToken2";` :
 ```
 $ curl -H 'X-Auth-Token: mySecurityToken2' -X POST http://localhost/dnsmasq-rest-api/reload
 OK Dnmasq config reloaded
