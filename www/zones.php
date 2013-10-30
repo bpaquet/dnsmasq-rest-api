@@ -94,7 +94,7 @@ class Zones {
   function delete_record($name, $ip, $alias = null) {
     $file = $this->get_zone_file($name);
     $z = $this->get_zone($name);
-    if ($z[$ip]) {
+    if (isset($z[$ip])) {
       if ($alias == null) {
         unset($z[$ip]);
       }
