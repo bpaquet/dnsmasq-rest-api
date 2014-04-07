@@ -33,9 +33,9 @@ echo "Running tests."
 echo "* Listing zones"
 curl -s http://localhost/dnsmasq-rest-api/zones | grep "\\[" | grep "\\]"
 echo "* Adding records"
-curl -s http://localhost/dnsmasq-rest-api/zones/myTest/records/127.0.0.2/localhost.test | grep OK
+curl -s -X POST http://localhost/dnsmasq-rest-api/zones/myTest/127.0.0.2/localhost.test | grep OK
 echo "* Reload dnsmasq"
-curl -s http://localhost/dnsmasq-rest-api/reload | grep OK
+curl -s -X POST http://localhost/dnsmasq-rest-api/reload | grep OK
 echo "* Testing dns"
 nslookup localhost.test 127.0.0.1 | grep 127.0.0.2
 echo "* Removing test zone"
